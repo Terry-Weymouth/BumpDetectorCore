@@ -8,6 +8,9 @@ sudo raspi-config
 (IC2)
 (Enable -> YES)
 
+(check if i2c working - accelerometer)
+sudo i2cdetect -y 1
+(note: should be '68')
 
 (restarting data collection...)
 cd Desktop/BumpDetectorAndGps/Python
