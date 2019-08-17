@@ -1,0 +1,28 @@
+(set up new pi)
+sudo raspi-config
+(Interfacing Options)
+(Serial)
+(Login -> NO)
+(Enable -> YES)
+(note: for accelerometer...)
+(IC2)
+(Enable -> YES)
+
+
+(restarting data collection...)
+cd Desktop/BumpDetectorAndGps/Python
+rm somefile.txt
+
+(start gps)
+gpsd /dev/serial0 -F /var/run/gpsd.sock
+(check with either)
+cgps -s
+gpsmon
+
+(set up python)
+source ../env/bin/activate
+(check serial)
+python GryoSerial/seria_test.py
+
+(start with)
+nohup python CaptureGryoAndGps.py &
