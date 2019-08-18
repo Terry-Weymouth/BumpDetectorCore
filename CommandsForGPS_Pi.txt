@@ -11,10 +11,8 @@ sudo raspi-config
 (check if i2c working - accelerometer)
 sudo i2cdetect -y 1
 (note: should be '68')
-
-(restarting data collection...)
-cd Desktop/BumpDetectorAndGps/Python
-rm somefile.txt
+cd ~/github/BumpDetectorCore/python/examples
+python3 MPU5060_IC2_Example.py
 
 (start gps)
 gpsd /dev/serial0 -F /var/run/gpsd.sock
@@ -22,10 +20,12 @@ gpsd /dev/serial0 -F /var/run/gpsd.sock
 cgps -s
 gpsmon
 
-(set up python)
-source ../env/bin/activate
+(restarting data collection...)
+cd Desktop/BumpDetectorAndGps/Python
+rm somefile.txt
+
 (check serial)
-python GryoSerial/seria_test.py
+python3 GryoSerial/seria_test.py
 
 (start with)
-nohup python CaptureGryoAndGps.py &
+nohup python3 CaptureGryoAndGps.py &
