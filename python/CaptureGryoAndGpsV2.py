@@ -125,8 +125,7 @@ if __name__ == '__main__':
                     gpsd.fix.longitude,
                     gpsd.fix.altitude,
                     gpsd.fix.speed)
-                line = "{}:{},{}".format(seqNumber, line, more_line)
-                print(line)
+                line = "V2-{}:{},{}".format(seqNumber, line, more_line)
                 the_file.write(line)
                 the_file.write("\n")
                 the_file.flush()
