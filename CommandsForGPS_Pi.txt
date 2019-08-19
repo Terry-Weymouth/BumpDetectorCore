@@ -15,10 +15,13 @@ cd ~/github/BumpDetectorCore/python/examples
 python3 MPU5060_IC2_Example.py
 
 (start gps)
-gpsd /dev/serial0 -F /var/run/gpsd.sock
+sudo systemctl status gpsd
+sudo systemctp start/stop gpsd
+# gpsd /dev/serial0 -F /var/run/gpsd.sock
+# gpsd /dev/ttyS0 -F /var/run/gpsd.sock
 (check with either)
 cgps -s
-gpsmon
+gpsmon /dev/ttyS0
 
 (restarting data collection...)
 cd Desktop/BumpDetectorAndGps/Python
