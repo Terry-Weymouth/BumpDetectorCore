@@ -114,10 +114,10 @@ if __name__ == '__main__':
     gyro_acc = GyroAndAcc()
     seqNumber = 0
     try:
-        seqNumber = seqNumber + 1
         gpsp.start()  # start it up
         with open('somefile.txt', 'a') as the_file:
             while True:
+                seqNumber = seqNumber + 1
                 line = gyro_acc.get_formatted_output()
                 more_line = "{},{},{},{},{}".format(
                     gpsd.utc,
@@ -130,6 +130,7 @@ if __name__ == '__main__':
                 the_file.write(line)
                 the_file.write("\n")
                 the_file.flush()
+                sleep(0.1)
 
     except (KeyboardInterrupt, SystemExit):  # when you press ctrl+c
         print("\nKilling Thread...")
