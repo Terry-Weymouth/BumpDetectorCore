@@ -15,8 +15,10 @@ cd ~/github/BumpDetectorCore/python/examples
 python3 MPU5060_IC2_Example.py
 
 (start gps)
+# good checks - https://gpsd.gitlab.io/gpsd/troubleshooting.html#generaltroubleshooting
 sudo systemctl status gpsd
-sudo systemctp start/stop gpsd
+sudo systemctl start/stop gpsd
+sudo systemctl start/stop gpsd.socket
 # gpsd /dev/serial0 -F /var/run/gpsd.sock
 # gpsd /dev/ttyS0 -F /var/run/gpsd.sock
 (check with either)
