@@ -28,6 +28,7 @@ class GpsPoller(threading.Thread):
 
 
 if __name__ == '__main__':
+    count = 0
     gpsp = GpsPoller()  # create the thread
     try:
         gpsp.start()  # start it up
@@ -37,8 +38,9 @@ if __name__ == '__main__':
 
             os.system('clear')
 
+            count += 1
             print
-            print ' GPS reading'
+            print ' GPS reading', count
             print '----------------------------------------'
             print 'latitude    ', gpsd.fix.latitude
             print 'longitude   ', gpsd.fix.longitude
