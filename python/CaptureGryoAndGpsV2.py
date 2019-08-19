@@ -88,7 +88,8 @@ class GyroAndAcc:
         self.gyro_y = self.gyro_y / 131.0
         self.gyro_z = self.gyro_z / 131.0
 
-    def formatted_output(self):
+    def get_formatted_output(self):
+        self.update_values()
         return "{},{},{},{},{},{}".format(
             self.gyro_x, self.gyro_y, self.gyro_z, self.acc_x, self.acc_y, self.acc_z
         )
@@ -113,11 +114,11 @@ if __name__ == '__main__':
     gyro_acc = GyroAndAcc()
     seqNumber = 0
     try:
-        seqNumber += 1
+        seqNumber = seqNumber + 1
         gpsp.start()  # start it up
         with open('somefile.txt', 'a') as the_file:
             while True:
-                line = gyro_acc.formatted_output()
+                line = gyro_acc.get_formatted_output()
                 more_line = "{},{},{},{},{}".format(
                     gpsd.utc,
                     gpsd.fix.latitude,
