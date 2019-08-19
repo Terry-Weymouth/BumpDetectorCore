@@ -89,13 +89,9 @@ class GyroAndAcc:
         self.gyro_z = self.gyro_z / 131.0
 
     def formatted_output(self):
-        print ("Gx=%.2f" % self.gyro_x, u'\u00b0' + "/s",
-               "\tGy=%.2f" % self.gyro_y, u'\u00b0' + "/s",
-               "\tGz=%.2f" % self.gyro_z, u'\u00b0' + "/s",
-               "\tAx=%.2f g" % self.acc_x,
-               "\tAy=%.2f g" % self.acc_y,
-               "\tAz=%.2f g" % self.acc_z)
-        return ""
+        return "{},{},{},{},{},{}".format(
+            self.gyro_x, self.gyro_y, self.gyro_z, self.acc_x, self.acc_y, self.acc_z
+        )
 
 
 class GpsPoller(threading.Thread):
@@ -115,7 +111,9 @@ class GpsPoller(threading.Thread):
 if __name__ == '__main__':
     gpsp = GpsPoller()  # create the thread
     gyro_acc = GyroAndAcc()
+    seqNumber = 0
     try:
+        seqNumber += 1
         gpsp.start()  # start it up
         with open('somefile.txt', 'a') as the_file:
             while True:
@@ -126,8 +124,8 @@ if __name__ == '__main__':
                     gpsd.fix.longitude,
                     gpsd.fix.altitude,
                     gpsd.fix.speed)
-                # line = "{}:{},{}".format(seqNumber, parts[1], more_line)
-                print(more_line)
+                line = "{}:{},{}".format(seqNumber, line, more_line)
+                print(line)
                 the_file.write(line)
                 the_file.write("\n")
                 the_file.flush()
