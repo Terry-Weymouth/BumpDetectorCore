@@ -9,11 +9,11 @@
         see: https://www.electronicwings.com/raspberry-pi/mpu6050-accelerometergyroscope-interfacing-with-raspberry-pi
 """
 
-import serial
 from gps import *
 import smbus  # import SMBus module of I2C
 from time import sleep  # import
 import threading
+from datetime import datetime
 
 gpsd = None  # setting the global variable
 
@@ -113,9 +113,10 @@ if __name__ == '__main__':
     gpsp = GpsPoller()  # create the thread
     gyro_acc = GyroAndAcc()
     seqNumber = 0
+    filename = datetime.now().strftime("RunData_%Y%m%d_%H%M%S.txt")
     try:
         gpsp.start()  # start it up
-        with open('somefile.txt', 'a') as the_file:
+        with open(filename, 'a') as the_file:
             while True:
                 seqNumber = seqNumber + 1
                 line = gyro_acc.get_formatted_output()
