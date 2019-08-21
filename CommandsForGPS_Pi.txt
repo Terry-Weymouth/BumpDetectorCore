@@ -15,22 +15,32 @@ cd ~/github/BumpDetectorCore/python/examples
 python3 MPU5060_IC2_Example.py
 
 (start gps)
-# good checks - https://gpsd.gitlab.io/gpsd/troubleshooting.html#generaltroubleshooting
+# See: ~/github/BumpDetectorCore/gpsd.txt
+
+# check enabled/running (after changes above and reboot)
 sudo systemctl status gpsd
-sudo systemctl start/stop gpsd
-sudo systemctl start/stop gpsd.socket
+
+# good checks - https://gpsd.gitlab.io/gpsd/troubleshooting.html#generaltroubleshooting
+# sudo systemctl enable/disable/start/stop gpsd
+# sudo systemctl start/stop gpsd.socket
 # gpsd /dev/serial0 -F /var/run/gpsd.sock
 # gpsd /dev/ttyS0 -F /var/run/gpsd.sock
-(check with either)
-cgps -s
-gpsmon /dev/ttyS0
+
+(check with)
+gpsmon
 
 (restarting data collection...)
-cd Desktop/BumpDetectorAndGps/Python
-rm somefile.txt
+cd Desktop/BumpDetectorAndGps/python
 
-(check serial)
-python3 GryoSerial/seria_test.py
+(check serial = GPS connection)
+python3 seria_test.py
+
+(check MPU5060)
+python3 examples/MPU5060_I2C_Example.py
 
 (start with)
 nohup python3 CaptureGryoAndGps.py &
+
+(check running with)
+ls -> to find filename
+tail -f [filename]
