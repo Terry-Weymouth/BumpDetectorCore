@@ -1,36 +1,5 @@
-Notes on GPS:
- https://wiki.dragino.com/index.php?title=Getting_GPS_to_work_on_Raspberry_Pi_3_Model_B
-
-(install gpsd etc)
-sudo apt-get install gpsd gpsd-clients python-gps
-
-(working dir)
-cd ~/github/BumpDetector
-
-(set up python)
-pip install -r requirements.txt 
-
-(GPS raw data)
-sudo cat /dev/ttyS0
-sudo cat /dev/serial0
-
-(start gps - local)
-gpsd /dev/serial0
-(start gps - official)
-sudo gpsd /dev/ttyS0 -F /var/run/gpsd.sock
-
-(check with)
-gpsmon
-
-(check serial)
-python GryoSerial/seria_test.py
-
-(clear old data)
-rm somefile.txt
-
-(start with)
-nohup python CaptureGryoAndGps.py &
-
+(in general - working dir)
+cd ~/github/BumpDetectorCore
 
 (set up new pi)
 sudo raspi-config
@@ -42,11 +11,13 @@ sudo raspi-config
 (IC2)
 (Enable -> YES)
 
-(check if i2c working - accelerometer)
-sudo i2cdetect -y 1
-(note: should be '68')
-cd ~/github/BumpDetectorCore/python/examples
-python3 MPU5060_IC2_Example.py
+(install gpsd etc)
+# Background: https://wiki.dragino.com/index.php?title=Getting_GPS_to_work_on_Raspberry_Pi_3_Model_B
+sudo apt-get install gpsd gpsd-clients python-gps
+
+(GPS raw data)
+sudo cat /dev/ttyS0
+sudo cat /dev/serial0
 
 (start gps)
 # See: ~/github/BumpDetectorCore/gpsd.txt
@@ -60,14 +31,21 @@ sudo systemctl status gpsd
 # gpsd /dev/serial0 -F /var/run/gpsd.sock
 # gpsd /dev/ttyS0 -F /var/run/gpsd.sock
 
+(start gps - official, second preferred)
+# sudo gpsd /dev/ttyS0 -F /var/run/gpsd.sock
+systemctl enable/disable/start/stop gpsd
+
 (check with)
 gpsmon
 
-(restarting data collection...)
-cd Desktop/BumpDetectorAndGps/python
+(check if i2c working - accelerometer)
+sudo i2cdetect -y 1
+(note: should be '68')
 
-(check serial = GPS connection)
-python3 seria_test.py
+(for python code... )
+cd ~/github/BumpDetectorCore/python
+(or)
+cd ~/github/BumpDetectorCore/python/examples
 
 (check MPU5060)
 python3 examples/MPU5060_I2C_Example.py
